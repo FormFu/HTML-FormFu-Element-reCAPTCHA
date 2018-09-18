@@ -80,7 +80,7 @@ sub render_data_non_recursive {
     my $recaptcha = Captcha::reCAPTCHA->new;
 
     my $recaptcha_html
-        = $recaptcha->get_html( $pubkey, $error, $use_ssl, $recaptcha_options,
+        = $recaptcha->get_html_v2( $pubkey, $error, $use_ssl, $recaptcha_options,
         );
 
     my $render = $self->SUPER::render_data_non_recursive( {

@@ -18,13 +18,12 @@ sub process {
     # real formfu fields, so they won't be in $params
     my $query = $self->form->query;
 
-    my $challenge = $query->param('recaptcha_challenge_field');
-    my $response  = $query->param('recaptcha_response_field');
+    my $response  = $query->param('g-recaptcha-response');
 
     # constraints are only run if submitted() is true.
     # the recaptcha fields have an implicit Required constraint
     # so throw an error if either field is missing
-    if ( !$challenge || !$response ) {
+    if ( !$response ) {
         return $self->mk_errors( {} );
     }
 
@@ -57,7 +56,7 @@ sub process {
         : $ENV{REMOTE_ADDR};
 
     my $result
-        = $captcha->check_answer_v2( $privkey, $remoteip, $challenge, $response, );
+        = $captcha->check_answer_v2( $privkey, $response, $remoteip, );
 
     # they're human!
     if ( $result->{is_valid} ) {

@@ -57,7 +57,7 @@ sub process {
         : $ENV{REMOTE_ADDR};
 
     my $result
-        = $captcha->check_answer( $privkey, $remoteip, $challenge, $response, );
+        = $captcha->check_answer_v2( $privkey, $remoteip, $challenge, $response, );
 
     # they're human!
     if ( $result->{is_valid} ) {
